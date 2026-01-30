@@ -50,7 +50,7 @@ async def handle_document(message: Message):
 
         # Добавляем имя файла, чтобы ИИ мог сравнивать их между собой
         user_data[uid].append(f"FILENAME: {doc.file_name}\nCONTENT: {text}")
-        print(text)
+        # print(text)
         await message.answer(f"✅ Файл добавлен (Всего: {len(user_data[uid])})")
     
     finally:
@@ -85,3 +85,4 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
