@@ -30,7 +30,20 @@ def extract_text_from_pdf(path: str) -> str:
 
 def extract_text_from_docx(path: str) -> str:
     doc = Document(path)
-    return "\n".join([p.text for p in doc.paragraphs])
+    full_text = []
+    
+    for table in doc.tables:
+        for row in table.rows:
+            # Объединяем ячейки строки через разделитель, чтобы ИИ видел связь
+            row_data = [cell.text.strip() for cell in row.cells]
+            full_text.append(" | ".join(row_data))
+            
+    for para in doc.paragraphs:
+        full_text.append(para.text)
+        
+    return "\n".join(full_text)
+    # doc = Document(path)
+    # return "\n".join([p.text for p in doc.paragraphs])
 
 # def extract_text_from_scan_pdf(path: str) -> str:
 #     reader = easyocr.Reader(['en', 'ru'])

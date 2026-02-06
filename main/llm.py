@@ -19,19 +19,19 @@ groq_client = OpenAI(
 
 async def analyze_document(text: str) -> str:
     # --- ПОПЫТКА 1: GROQ (Очень быстрый) ---
-    try:
-        print("🔄 Попытка через Groq...")
-        response = groq_client.responses.create(
-            model="openai/gpt-oss-20b",
-            input=[
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": text}
-            ],
-            temperature=0.2
-        )
-        return response.output_text
-    except Exception as e:
-        print(f"❌ Ошибка в Groq: {e}")
+    # try:
+    #     print("🔄 Попытка через Groq...")
+    #     response = groq_client.responses.create(
+    #         model="openai/gpt-oss-20b",
+    #         input=[
+    #             {"role": "system", "content": system_prompt},
+    #             {"role": "user", "content": text}
+    #         ],
+    #         temperature=0.2
+    #     )
+    #     return response.output_text
+    # except Exception as e:
+    #     print(f"❌ Ошибка в Groq: {e}")
 
     # --- ПОПЫТКА 2: GEMINI (Большое окно контекста) ---
     try:
