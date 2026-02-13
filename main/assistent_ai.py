@@ -14,9 +14,30 @@ dp = Dispatcher()
 # Хранилище текстов для каждого пользователя
 user_data = {}
 
-def get_analysis_kb():
-    kb = [[KeyboardButton(text="📊 Сделать общий отчет")]]
-    return ReplyKeyboardMarkup(keyboard=kb, resize_keyboard=True)
+@dp.message(F.text == "📊 Сделать общий отчет")
+async def process_all(message: Message):
+    uid = message.from_user.id
+    docs = user_data.get(uid, [])
+
+    if not docs:
+        await message.answer("⚠️ Сначала отправьте хотя бы один документ.")
+        return
+
+    await message.answer("🔍 Формирую единый отчет по пакету документов...")
+
+    # Объединяем документы с четкими разделителями для ИИ
+    full_text = "\n\n=== DOCUMENT START ===\n\n".join(docs)
+    
+    # Отправляем весь пакет в ИИ одним запросом
+    result = await analyze_document(full_text)
+
+    if result:
+        # Красиво выводим результат
+        await message.answer(result)
+        # Очищаем данные пользователя после успешного отчета
+        user_data[uid] = [] 
+    else:
+        await message.answer("⚠️ Ошибка анализа пакета документов.")
 
 @dp.message(CommandStart())
 async def start(message: Message):
