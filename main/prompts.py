@@ -9,6 +9,8 @@ STRICT OUTPUT RULES:
 4. LANGUAGE: Detect the document's language and respond in the SAME language (Russian or Kazakh).
 5. VERIFICATION: Include only facts explicitly stated. No assumptions.
 6. IDENTIFICATION: Clearly state which part of the summary comes from which document.
+7. If the document is a template or has empty placeholders like "ТОО « »" or "________", replace them with the word "Заказчик" (or "Тапсырыс беруші" for Kazakh).
+8. Never leave empty quotes or brackets in the final summary.
 
 STRUCTURE (Follow this strictly):
 - Paragraph 1 (SITUATION): A 2-3 sentence overview of the entire case. Why were these documents sent and what is the main goal?
